@@ -43,3 +43,5 @@ plt.figure(3)
 plt.plot(np.cumsum(np.diag(S))/np.sum(np.diag(S)))
 plt.title('Singlar Values: Cumulative Sum')
 plt.show()
+
+print("test")
