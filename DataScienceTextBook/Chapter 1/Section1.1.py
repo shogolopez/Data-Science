@@ -1,0 +1,20 @@
+import numpy as np
+
+X = np.random.rand(10,3)
+print("This is our X matrix")
+print(X)
+
+U, s, VT = np.linalg.svd(X,full_matrices=False)
+print("For the Full matricies, this is our U, S, VT")
+print(U)
+print("")
+S = np.diag(s)
+print(S)
+print("")
+print(VT)
+print("")
+print("Testing to multiply back to X")
+USVT = np.dot(U*s,VT)
+print(USVT)
+print("")
+print("For economy SVD, this is our U, S, VT")
