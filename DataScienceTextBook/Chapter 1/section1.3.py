@@ -21,7 +21,7 @@ Rz = np.array([[np.cos(theta[2]), -np.sin(theta[2]), 0],
 X = Rz @ Ry @ Rx @ Sigma
 
 fig = plt.figure()
-ax1 = fig.add_subplot(121, projection = '3d')
+ax1 = fig.add_subplot(131, projection = '3d')
 u = np.linspace(-np.pi, np.pi, 100)
 v = np.linspace(0, np.pi, 100)
 x = np.outer(np.cos(u), np.sin(v))
@@ -37,3 +37,41 @@ ax1.set_zlim3d(-2,2)
 xR = np.zeros_like(x)
 yR = np.zeros_like(y)
 zR = np.zeros_like(z)
+
+for i in range(x.shape[0]):
+    for j in range(x.shape[1]):
+        vec = [x[i,j], y[i,j], z[i,j]]
+        vecR = X @ vec
+        xR[i,j] = vecR[0]
+        yR[i,j] = vecR[1]
+        zR[i,j] = vecR[2]
+ax2 = fig.add_subplot(132, projection='3d')
+surf2 = ax2.plot_surface(xR, yR, zR, cmap='jet',alpha = 0.6)
+surf2.set_edgecolor('k')
+ax2.set_xlim3d(-2,2)
+ax2.set_ylim3d(-2,2)
+ax2.set_zlim3d(-2,2)
+
+U, S, VT = np.linalg.svd(X, full_matrices = False)
+X_tilda = U @ np.diag(S)
+
+xR2 = np.zeros_like(x)
+yR2 = np.zeros_like(y)
+zR2 = np.zeros_like(z)
+
+for i in range(x.shape[0]):
+    for j in range(x.shape[1]):
+        vec = [x[i,j], y[i,j], z[i,j]]
+        vecR = X_tilda @ vec
+        xR[i,j] = vecR[0]
+        yR[i,j] = vecR[1]
+        zR[i,j] = vecR[2]
+ax3 = fig.add_subplot(133, projection='3d')
+surf2 = ax3.plot_surface(xR, yR, zR, cmap='jet',alpha = 0.6)
+surf2.set_edgecolor('k')
+ax3.set_xlim3d(-2,2)
+ax3.set_ylim3d(-2,2)
+ax3.set_zlim3d(-2,2)
+
+
+plt.show()
